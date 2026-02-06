@@ -6,6 +6,10 @@
         <div class="col-md-8">
             <div class="form-group mb-2">
                 <a href="{{url('master-items/form/new')}}" class="btn btn-secondary">+ Master Items Baru</a>
+                <a href="#" id="btn-export-excel" class="btn btn-success">
+    Export Excel
+</a>
+
             </div>
             <div class="card">
                 <div class="card-header">Daftar Master Items</div>
@@ -21,4 +25,18 @@
 @endsection
 @section('js')
 @include('master_items.index.js')
+<script>
+document.getElementById('btn-export-excel').addEventListener('click', function (e) {
+    const params = new URLSearchParams({
+        kode: document.getElementById('filter-kode').value,
+        nama: document.getElementById('filter-nama').value,
+        harga_min: document.getElementById('filter-harga-min').value,
+        harga_max: document.getElementById('filter-harga-max').value,
+    });
+
+    window.location.href =
+        "{{ route('master-items.export.excel') }}?" + params.toString();
+});
+</script>
 @endsection
+
