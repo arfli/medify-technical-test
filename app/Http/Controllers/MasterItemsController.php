@@ -49,7 +49,11 @@ class MasterItemsController extends Controller
         $data['item'] = $item;
         $data['method'] = $method;
         $data['categories'] =  CategoryItem::orderBy('nama')->get();
-        $data['selectedCategoryIds'] = $data['categories']->pluck('id')->toArray();
+        $categories = MasterItem::find($item->id)->categories;
+
+
+
+        $data['selectedCategoryIds'] = $categories->pluck('id')->toArray();
 
         
         return view('master_items.form.index', $data);
@@ -149,6 +153,13 @@ class MasterItemsController extends Controller
 
 
         $data_item->save();
+
+
+
+        if (empty($request->input('category_ids'))  && $method == 'edit') {
+            MasterItemCategories::where('master_item_id', $data_item->id)->delete();
+        }
+
 
         // Handle categories
     if (!empty($request->input('category_ids')) && is_array($request->input('category_ids'))) {
