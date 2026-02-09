@@ -15,7 +15,7 @@
 
             </div>
             <div class="card">
-                <div class="card-header">Daftar Master Itemsss</div>
+                <div class="card-header">Daftar Master Itemssss</div>
 
                 <div class="card-body">
                     @include('master_items.index.filter')
